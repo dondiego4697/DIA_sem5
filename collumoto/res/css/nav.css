@@ -1,0 +1,35 @@
+.nav-container {
+    width: 100%;
+    background-color: #cdcfd0;
+    position: fixed;
+    top: 80px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.nav-controls {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.nav-controls li {
+    float: left;
+}
+
+.nav-controls li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition-duration: 0.3s;
+}
+
+.nav-controls li a:hover:not(.active) {
+    background-color: black;
+}
+
+.nav-controls_logout {
+    float: right !important;
+}
