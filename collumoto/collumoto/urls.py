@@ -19,8 +19,11 @@ from django.contrib import admin
 from main import views
 
 urlpatterns = [
-    url(r'^admin/?', admin.site.urls),
-    url(r'^auth/?', views.auth_view, name='auth'),
-    url(r'^question/(?P<photo_id>[0-9]+)/?', views.photo, name='photo'),
-    url(r'^/?', views.index, name='index'),
+	url(r'^admin/?', admin.site.urls),
+	url(r'^auth/?', views.auth_view, name='auth'),
+	url(r'^question/(?P<photo_id>[0-9]+)/?', views.photo_view, name='photo'),
+	url(r'^signup/?', views.sign_up, name='signup'),
+	url(r'^login/?', views.log_in, name='login'),
+	url(r'^logout/?', views.log_out, name='logout'),
+	url(r'^/?', views.index_view, name='index'),
 ]

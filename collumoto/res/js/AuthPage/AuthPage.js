@@ -2,9 +2,17 @@ import './auth.css';
 import {createElement, appendChild} from '../util/htmlElement';
 import configLogin from './LoginConfig';
 import configSignup from './SignupConfig';
+import urls from '../util/urls';
+import {request} from "../util/http";
+import getCsrf from "../util/csrf";
+import BasePage from "../BasePage";
 
-export default class AuthPage {
+import {check200} from "../util/checkStatus";
+import Toast from "../Toast/Toast";
+
+export default class AuthPage extends BasePage {
     constructor() {
+        super();
         this._node = document.getElementById('auth');
 
         this._btnToHandler = this._btnToHandler.bind(this);
@@ -86,7 +94,24 @@ export default class AuthPage {
                     value: [[this.etLLogin, this.etLLoginErr], [this.etLPass, this.etLPassErr]]
                 }
             ]).then(() => {
-                //TODO login
+                this.showBlocker();
+                request(urls.login, {
+                    'X-CSRFToken': getCsrf()
+                }, 'POST', {
+                    login: this.etLLogin.value,
+                    password: this.etLPass.value
+                }).then(data => {
+                    if (!check200(data.status)) {
+                        throw new Error('Wrong data');
+                    }
+                    this.hideBlocker();
+                    if (data.redirected) {
+                        window.location = data.url;
+                    }
+                }).catch(err => {
+                    Toast.showError(err.message);
+                    this.hideBlocker();
+                });
             });
         });
 
@@ -104,19 +129,35 @@ export default class AuthPage {
                 {
                     type: 'equal',
                     value: [[this.etRPass, this.etRPassErr], this.etRPassRepeat]
-                },
-                {
-                    type: 'checkLogin',
-                    value: this.etRLogin
                 }
             ]).then(() => {
-                //TODO signup
+                this.showBlocker();
+                request(urls.signup, {
+                    'X-CSRFToken': getCsrf()
+                }, 'POST', {
+                    login: this.etRLogin.value,
+                    password: this.etRPass.value,
+                    passwordRepeat: this.etRPassRepeat.value
+                }).then(data => {
+                    if (!check200(data.status)) {
+                        throw new Error('Wrong data');
+                    }
+                    this.hideBlocker();
+                    this._changeSubViews();
+                }).catch(err => {
+                    Toast.showError(err.message);
+                    this.hideBlocker();
+                });
             });
         });
     }
 
     _btnToHandler(event) {
         event.preventDefault();
+        this._changeSubViews();
+    }
+
+    _changeSubViews() {
         this._loginContainer.classList.toggle('hidden');
         this._signupContainer.classList.toggle('hidden');
     }
@@ -157,9 +198,6 @@ export default class AuthPage {
                             this._errorAction(false, arr[0][0], arr[0][1], '');
                         }
                         break;
-                    }
-                    case 'checkLogin': {
-                        //TODO create request to server
                     }
                 }
             });
