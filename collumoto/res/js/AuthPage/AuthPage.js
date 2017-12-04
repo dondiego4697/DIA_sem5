@@ -83,6 +83,21 @@ export default class AuthPage extends BasePage {
         }
     }
 
+    _clearLoginFields() {
+        this.etLLogin.value = '';
+        this.etLPass.value = '';
+        this._errorAction(false, this.etLLogin, this.etLLoginErr, '');
+        this._errorAction(false, this.etLPass, this.etLPassErr, '');
+    }
+
+    _clearSignupFields() {
+        this.etRLogin.value = '';
+        this.etRPass.value = '';
+        this.etRPassRepeat.value = '';
+        this._errorAction(false, this.etRLogin, this.etRLoginErr, '');
+        this._errorAction(false, this.etRPass, this.etRPassErr, '');
+    }
+
     _initListeners() {
         this.btnToSignup.addEventListener('click', this._btnToHandler);
         this.btnToLogin.addEventListener('click', this._btnToHandler);
@@ -144,6 +159,7 @@ export default class AuthPage extends BasePage {
                     }
                     this.hideBlocker();
                     this._changeSubViews();
+                    this._clearSignupFields();
                 }).catch(err => {
                     Toast.showError(err.message);
                     this.hideBlocker();
@@ -160,6 +176,8 @@ export default class AuthPage extends BasePage {
     _changeSubViews() {
         this._loginContainer.classList.toggle('hidden');
         this._signupContainer.classList.toggle('hidden');
+        this._clearLoginFields();
+        this._clearSignupFields();
     }
 
     _validate(data) {
