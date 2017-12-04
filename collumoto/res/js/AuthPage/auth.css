@@ -2,7 +2,7 @@
     display: block;
     margin: 15% auto;
     width: 40%;
-    background-color: white;
+    background-color: #F2F2F2;
     border-radius: 3px;
     padding: 15px 25px;
     font-family: 'Raleway', sans-serif;
@@ -27,7 +27,7 @@
 
 .input-group .auth-input {
     background: #fff;
-    border: 1px solid #999;
+    border: 0 solid #999;
     float: left;
     font-size: 13px;
     height: 33px;
@@ -39,9 +39,13 @@
     font-family: 'Raleway', sans-serif;
 }
 
+.input-group input{
+    outline: none;
+}
+
 .input-group .auth-input.error {
     background-color: #fce4e4;
-    border: 1px solid #cc0033;
+    border: 0 solid #cc0033;
     outline: none;
 }
 
@@ -54,9 +58,10 @@
 }
 
 .input-group .auth-submit {
-    background: #ffb9ba;
-    border: 1px solid #999;
+    background: #FCBC48;
     border-radius: 3px;
+    border: 0 solid #fff;
+    color: #fff;
     float: left;
     font-size: 13px;
     height: 33px;
@@ -68,7 +73,7 @@
 }
 
 .input-group .auth-submit:hover {
-    background: #ffa0a2;
+    background: #eeb244;
 }
 
 .auth-controls .auth-to {

@@ -27,7 +27,7 @@
 }
 
 .nav-controls li a:hover:not(.active) {
-    background-color: black;
+    background-color: #b8babb;
 }
 
 .nav-controls_logout {
