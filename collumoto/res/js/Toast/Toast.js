@@ -6,9 +6,13 @@ export default class Toast {
     }
 
     static showError(title, message = '') {
-        iziToast.error({
+        iziToast.show({
             title,
-            message
+            message,
+            backgroundColor: '#DD0A17',
+            messageColor: '#fff',
+            titleColor: '#fff',
+            position: 'topRight'
         });
     }
 }
