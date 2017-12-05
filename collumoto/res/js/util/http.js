@@ -1,4 +1,4 @@
-export function request(address = '', headers = {}, type = 'GET', body = {}) {
+export function request(address = '', headers = {}, type = 'GET', body) {
     let fetchObj = {
         method: type,
         headers: headers,
@@ -9,18 +9,19 @@ export function request(address = '', headers = {}, type = 'GET', body = {}) {
     }
 
     return new Promise((resolve, reject) => {
+        let result;
         fetch(address, fetchObj).then(response => {
-            return {
-                json: response.json(),
+            result = {
                 redirected: response.redirected,
                 url: response.url,
                 status: response.status
-            }
-        }).then(data => {
-            resolve(data);
+            };
+            return response.json();
+        }).then(json => {
+            result.json = json;
+            resolve(result);
         }).catch(err => {
             reject(err);
         });
-
     });
 }

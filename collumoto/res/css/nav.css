@@ -4,6 +4,7 @@
     position: fixed;
     top: 80px;
     font-family: 'Raleway', sans-serif;
+    z-index: 1000;
 }
 
 .nav-controls {

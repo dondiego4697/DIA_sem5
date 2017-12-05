@@ -5,17 +5,17 @@ from django.http import HttpResponse
 
 class Response:
 	@staticmethod
-	def get_error(msg='Wrong data'):
+	def get_error(msg):
 		return {
 			'status': 'error',
-			'message': msg
+			'message': msg or 'Wrong data'
 		}
 
 	@staticmethod
-	def get_success(msg=''):
+	def get_success(msg):
 		return {
 			'status': 'ok',
-			'message': msg
+			'message': msg or ''
 		}
 
 	@staticmethod

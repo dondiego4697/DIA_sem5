@@ -1,6 +1,7 @@
 #home {
     display: flex;
     justify-content: space-around;
+    margin-top: 130px;
 }
 
 #list-container {
@@ -20,6 +21,7 @@
     right: 25px;
     transition-duration: 0.3s;
     justify-content: space-around;
+    cursor: pointer;
 }
 
 .btn-add:hover {
@@ -33,7 +35,7 @@
 .btn-add_plus:before, .btn-add_plus:after {
     position: absolute;
     top: 25px;
-    right: 37px;
+    right: 38px;
     content: ' ';
     height: 30px;
     width: 4px;
@@ -47,3 +49,4 @@
 .btn-add_plus:after {
     transform: rotate(0deg);
 }
+

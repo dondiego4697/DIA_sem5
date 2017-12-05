@@ -52,7 +52,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'collumoto.urls'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'build'),)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'build'), os.path.join(BASE_DIR, 'photos'),)
 
 TEMPLATES = [
     {

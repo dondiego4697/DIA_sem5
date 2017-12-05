@@ -41,7 +41,7 @@ def log_out(request):
 
 def sign_up(request):
 	try:
-		if request.method != "POST":
+		if request.method != 'POST':
 			return Response.send400('Only POST!')
 
 		body = json.loads(request.body)
@@ -59,7 +59,7 @@ def sign_up(request):
 
 def log_in(request):
 	try:
-		if request.method != "POST":
+		if request.method != 'POST':
 			return Response.send400('Only POST!')
 
 		body = json.loads(request.body)
@@ -73,5 +73,18 @@ def log_in(request):
 			return HttpResponseRedirect('/')
 
 		return Response.send400()
+	except Exception:
+		return Response.send400()
+
+
+def get_photos(request):
+	try:
+		if request.method != 'GET':
+			return Response.send400('Only GET!')
+
+		limit = request.GET['limit']
+		offset = request.GET['offset']
+
+		return Response.send200(limit + offset)
 	except Exception:
 		return Response.send400()

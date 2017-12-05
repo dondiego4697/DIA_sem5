@@ -1,16 +1,31 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block content %}
-    <div class="nav-container">
-        <ul class="nav-controls">
-            <li><a href="/">Home</a></li>
-            <li class="nav-controls_logout"><a href="/logout">Log out</a></li>
-        </ul>
-    </div>
+    {% include "nav.html" %}
     <div id="home">
         {% csrf_token %}
         <div id="list-container">
-
+            <div class="photo-pair">
+                <div class="photo-card">
+                    <div class="info-card">
+                        <div class="heart-container">
+                            <div class="heart"></div>
+                        </div>
+                    </div>
+                    <img src="{% static "7579.jpg" %}"/>
+                </div>
+                <div class="photo-card">
+                    <img src="{% static "7579.jpg" %}"/>
+                </div>
+            </div>
+            <div class="photo-pair">
+                <div class="photo-card">
+                    <img src="{% static "7579.jpg" %}"/>
+                </div>
+                <div class="photo-card">
+                    <img src="{% static "7579.jpg" %}"/>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
