@@ -49,6 +49,7 @@
     left: 8px;
     top: 150px;
     transform: rotate(315deg);
+    transition-duration: 0.3s;
 }
 
 .info-card .heart-container .heart:before {
@@ -60,10 +61,25 @@
     content: "";
     background-color: #F2F2F2;
     border-radius: 0 50px 50px 0;
+    transition-duration: 0.3s;
 }
 
 .info-card .heart-container .heart:hover:before,
-.info-card .heart-container .heart:hover {
+.info-card .heart-container .heart:hover,
+.info-card.liked .heart-container .heart {
     background-color: #DD0A17;
+}
+
+.info-card .likes-container {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+}
+
+.info-card .likes-container .likes {
+    top: 160px;
+    position: relative;
+    font-family: 'Raleway', sans-serif;
+    font-size: 30px;
 }
 

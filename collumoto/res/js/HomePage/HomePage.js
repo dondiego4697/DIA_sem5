@@ -5,7 +5,7 @@ import PhotoCard from './PhotoCard/PhotoCard';
 import {request} from "../util/http";
 import urls from "../util/urls";
 
-export default class HomePage extends BasePage{
+export default class HomePage extends BasePage {
     constructor() {
         super();
         this._photoLimit = 10;
@@ -50,7 +50,18 @@ export default class HomePage extends BasePage{
     _getNewPhotos() {
         this.showBlocker();
         request(urls.getPhotos(this._photoLimit, this._photoOffset), {}).then(res => {
-           this.hideBlocker();
+            this.hideBlocker();
+            //TODO нормальные данные подтягивать
+            for (let i = 1; i < 8; i++) {
+                const photoCard = new PhotoCard(this._listContainer, {
+                    likesCount: i * 100,
+                    link: '/res/7579.jpg'
+                }, {
+                    likesCount: i * 200,
+                    link: '/res/7579.jpg'
+                });
+                photoCard.addToNode();
+            }
         });
     }
 }
