@@ -1,0 +1,88 @@
+.photo-pair {
+  display: flex;
+  flex-direction: row;
+
+  .photo-card {
+    position: relative;
+    height: 400px;
+    width: 400px;
+    background-color: #F2F2F2;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+
+    img {
+      height: 400px;
+      width: 400px;
+      border-radius: 5px;
+    }
+
+    .info-card {
+      display: none;
+      position: absolute;
+      top: 10px;
+      height: 400px;
+      width: 400px;
+      border-radius: 5px;
+      background-color: rgba(0, 0, 0, 0.3);
+      color: white;
+
+      .heart-container {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto;
+
+        .heart {
+          position: relative;
+          width: 30px;
+          height: 50px;
+          background-color: #F2F2F2;
+          border-radius: 50px 50px 0 0;
+          left: 8px;
+          top: 150px;
+          transform: rotate(315deg);
+          transition-duration: 0.3s;
+
+          &:before {
+            position: absolute;
+            width: 50px;
+            height: 30px;
+            left: 0;
+            bottom: 0;
+            content: "";
+            background-color: #F2F2F2;
+            border-radius: 0 50px 50px 0;
+            transition-duration: 0.3s;
+          }
+
+          &:hover:before,
+          &:hover {
+            background-color: #DD0A17;
+          }
+        }
+      }
+      &.liked {
+        background-color: #DD0A17;
+      }
+
+      .likes-container {
+        width: 40px;
+        height: 40px;
+        margin: 0 auto;
+
+        .likes {
+          top: 160px;
+          position: relative;
+          font-family: 'Raleway', sans-serif;
+          font-size: 30px;
+        }
+      }
+    }
+
+    &:hover {
+      .info-card {
+        display: block;
+      }
+    }
+  }
+}

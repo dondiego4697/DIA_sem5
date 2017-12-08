@@ -16,6 +16,9 @@ export function request(address = '', headers = {}, type = 'GET', body) {
                 url: response.url,
                 status: response.status
             };
+            if (response.redirected) {
+                return {};
+            }
             return response.json();
         }).then(json => {
             result.json = json;

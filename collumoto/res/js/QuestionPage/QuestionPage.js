@@ -1,4 +1,4 @@
-import './question.css';
+import './question.scss';
 export default class QuestionPage {
     constructor() {
 

@@ -1,0 +1,35 @@
+.nav-container {
+  width: 100%;
+  background-color: #cdcfd0;
+  position: fixed;
+  top: 80px;
+  font-family: 'Raleway', sans-serif;
+  z-index: 1000;
+}
+
+.nav-controls {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+
+  li {
+    float: left;
+    a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      transition-duration: 0.3s;
+
+      &:hover:not(.active) {
+        background-color: #b8babb;
+      }
+    }
+  }
+}
+
+.nav-controls_logout {
+  float: right !important;
+}

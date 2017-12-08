@@ -1,9 +1,10 @@
-import './home.css';
+import './home.scss';
 import BasePage from '../BasePage';
 import {appendChild, createElement} from '../util/htmlElement';
 import PhotoCard from './PhotoCard/PhotoCard';
 import {request} from "../util/http";
 import urls from "../util/urls";
+import AddPhotoPopup from "../AddPhotoPopup/AddPhotoPopup";
 
 export default class HomePage extends BasePage {
     constructor() {
@@ -12,6 +13,7 @@ export default class HomePage extends BasePage {
         this._photoOffset = 0;
         this._nodeHome = document.getElementById('home');
         this._listContainer = document.getElementById('list-container');
+        this._addPhotoPopup = new AddPhotoPopup();
         this._btnAddPhotoHandler = this._btnAddPhotoHandler.bind(this);
         this._init();
     }
@@ -40,7 +42,7 @@ export default class HomePage extends BasePage {
     }
 
     _btnAddPhotoHandler() {
-        alert(123);
+        this._addPhotoPopup.add();
     }
 
     _offsetCrement(isDecrement) {
@@ -52,7 +54,7 @@ export default class HomePage extends BasePage {
         request(urls.getPhotos(this._photoLimit, this._photoOffset), {}).then(res => {
             this.hideBlocker();
             //TODO нормальные данные подтягивать
-            for (let i = 1; i < 8; i++) {
+            /*for (let i = 1; i < 8; i++) {
                 const photoCard = new PhotoCard(this._listContainer, {
                     likesCount: i * 100,
                     link: '/res/7579.jpg'
@@ -61,7 +63,7 @@ export default class HomePage extends BasePage {
                     link: '/res/7579.jpg'
                 });
                 photoCard.addToNode();
-            }
+            }*/
         });
     }
 }

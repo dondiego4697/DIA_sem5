@@ -1,0 +1,64 @@
+.photo-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  z-index: 8999999;
+}
+
+.photo-popup-container {
+  padding: 15px;
+  background-color: white;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+
+  textarea {
+    resize: none;
+  }
+
+  img {
+    margin-top: 15px;
+  }
+
+  input {
+    margin-top: 15px;
+  }
+
+  .close {
+    position: absolute;
+    right: 32px;
+    top: 32px;
+    width: 32px;
+    height: 32px;
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &:before, &:after {
+      position: absolute;
+      left: 15px;
+      content: ' ';
+      height: 33px;
+      width: 2px;
+      background-color: #ffffff;
+    }
+
+    &:before {
+      transform: rotate(45deg);
+    }
+
+    &:after {
+      transform: rotate(-45deg);
+    }
+  }
+}
+

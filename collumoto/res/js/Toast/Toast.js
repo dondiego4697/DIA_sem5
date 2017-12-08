@@ -12,7 +12,8 @@ export default class Toast {
             backgroundColor: '#DD0A17',
             messageColor: '#fff',
             titleColor: '#fff',
-            position: 'topRight'
+            position: 'topRight',
+            zindex: 99999999
         });
     }
 }

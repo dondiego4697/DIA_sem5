@@ -1,4 +1,4 @@
-import './photocard.css';
+import './photocard.scss';
 import {appendChild, createElement} from "../../util/htmlElement";
 
 export default class PhotoCard {

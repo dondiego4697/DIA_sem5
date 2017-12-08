@@ -1,6 +1,6 @@
-import '../css/main.css';
-import '../css/brand.css';
-import '../css/nav.css';
+import '../css/main.scss';
+import '../css/brand.scss';
+import '../css/nav.scss';
 
 import AuthPage from './AuthPage/AuthPage';
 import QuestionPage from "./QuestionPage/QuestionPage";

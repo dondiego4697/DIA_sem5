@@ -1,4 +1,4 @@
-import './auth.css';
+import './auth.scss';
 import {createElement, appendChild} from '../util/htmlElement';
 import configLogin from './LoginConfig';
 import configSignup from './SignupConfig';

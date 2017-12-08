@@ -1,5 +1,5 @@
 import {appendChild, createElement, removeChild} from "../util/htmlElement";
-import "./blocker.css";
+import "./blocker.scss";
 
 export default class Blocker {
     constructor() {
