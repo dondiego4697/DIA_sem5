@@ -13,12 +13,13 @@ export default class HomePage extends BasePage {
         this._photoOffset = 0;
         this._nodeHome = document.getElementById('home');
         this._listContainer = document.getElementById('list-container');
-        this._addPhotoPopup = new AddPhotoPopup();
+        this._addPhotoPopup = new AddPhotoPopup(this);
         this._btnAddPhotoHandler = this._btnAddPhotoHandler.bind(this);
         this._init();
     }
 
     _init() {
+        debugger;
         this._btnAddPhoto = HomePage._createBtnAddPhoto();
         appendChild(this._nodeHome, this._btnAddPhoto);
         this._initBtnAddPhotoListener();
@@ -42,7 +43,7 @@ export default class HomePage extends BasePage {
     }
 
     _btnAddPhotoHandler() {
-        this._addPhotoPopup.add();
+        this._addPhotoPopup.addPopup();
     }
 
     _offsetCrement(isDecrement) {

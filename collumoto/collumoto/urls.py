@@ -25,6 +25,7 @@ urlpatterns = [
 	url(r'^signup/?', views.sign_up, name='signup'),
 	url(r'^login/?', views.log_in, name='login'),
 	url(r'^logout/?', views.log_out, name='logout'),
-	url(r'^get_photos/?', views.get_photos, name='get_photos'),
+	url(r'^get-photos/?', views.get_photos, name='get_photos'),
+	url(r'^addPopup-photo/?', views.add_photo, name='add_photo'),
 	url(r'^/?', views.index_view, name='index'),
 ]

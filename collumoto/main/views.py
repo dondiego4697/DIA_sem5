@@ -8,6 +8,7 @@ from django.urls import reverse
 
 from main.forms.Login import Login
 from main.forms.Signup import Signup
+from main.forms.AddPhoto import AddPhoto
 from main.util.Response.Response import Response
 
 
@@ -86,5 +87,23 @@ def get_photos(request):
 		offset = request.GET['offset']
 
 		return Response.send200(limit + offset)
+	except Exception:
+		return Response.send400()
+
+
+def add_photo(request):
+	try:
+		if request.method != 'POST':
+			return Response.send400('Only POST!')
+
+		body = json.loads(request.body)
+		add_photo_form = AddPhoto(body, request.user)
+		if not add_photo_form.validate():
+			return Response.send400()
+
+		if not add_photo_form.add():
+			return Response.send400()
+
+		return Response.send200()
 	except Exception:
 		return Response.send400()

@@ -1,13 +1,17 @@
 import './photoPopup.scss';
 import {appendChild, createElement, removeChild} from "../util/htmlElement";
 import Toast from "../Toast/Toast";
+import {request} from "../util/http";
+import urls from "../util/urls";
+import getCsrf from "../util/csrf";
+import {check200} from "../util/checkStatus";
 
 export default class AddPhotoPopup {
-    constructor() {
-
+    constructor(page) {
+        this._page = page;
     }
 
-    add() {
+    addPopup() {
         this._photoPopup = createElement('div', {
             'class': 'photo-popup'
         });
@@ -64,7 +68,7 @@ export default class AddPhotoPopup {
         this._setListenersSubmit();
     }
 
-    remove() {
+    removePopup() {
         removeChild(document.body, this._photoPopup);
     }
 
@@ -78,7 +82,7 @@ export default class AddPhotoPopup {
 
     _setListenersClose() {
         this._close.addEventListener('click', () => {
-            this.remove();
+            this.removePopup();
         });
     }
 
@@ -100,6 +104,7 @@ export default class AddPhotoPopup {
 
                 reader.onload = (e) => {
                     this._imgContainer.setAttribute('src', e.target.result);
+                    this._imgResultData = e.target.result;
                     this._showImg();
                 };
 
@@ -121,13 +126,33 @@ export default class AddPhotoPopup {
                 check = false;
             }
 
-            if (!this._imgFile.files[0]) {
+            if (!this._imgResultData) {
                 check = false;
                 Toast.showError('Upload photo');
             }
 
             if (!check) return;
-            //TODO upload photo
+            this._sendPhotoData();
+        });
+    }
+
+    _sendPhotoData() {
+        this._page.showBlocker();
+        request(urls.addPhoto, {
+            'X-CSRFToken': getCsrf()
+        }, 'POST', {
+            name: this._name.value,
+            description: this._description.value,
+            photo: this._imgResultData
+        }).then(data => {
+            if (!check200(data.status)) {
+                throw new Error('Wrong data');
+            }
+            this._page.hideBlocker();
+            this.removePopup();
+        }).catch(err => {
+            this._page.hideBlocker();
+            Toast.showError(err.message);
         });
     }
 }
