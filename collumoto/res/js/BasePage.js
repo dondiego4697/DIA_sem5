@@ -10,8 +10,6 @@ export default class BasePage {
     }
 
     hideBlocker() {
-        setTimeout(() => {
-            this._blocker.remove();
-        }, 1000);
+        this._blocker.remove();
     }
 }

@@ -38,8 +38,7 @@ export default class AddPhotoPopup {
 
         this._imgContainer = createElement('img', {
             'class': 'hidden',
-            width: 300,
-            height: 300
+            width: 300
         });
 
         this._submit = createElement('input', {
@@ -149,6 +148,7 @@ export default class AddPhotoPopup {
                 throw new Error('Wrong data');
             }
             this._page.hideBlocker();
+            this._page._refresh();
             this.removePopup();
         }).catch(err => {
             this._page.hideBlocker();

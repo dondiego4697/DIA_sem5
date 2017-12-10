@@ -59,10 +59,13 @@
           &:hover {
             background-color: #DD0A17;
           }
+          &.liked {
+            background-color: #DD0A17;
+            &:before {
+              background-color: #DD0A17;
+            }
+          }
         }
-      }
-      &.liked {
-        background-color: #DD0A17;
       }
 
       .likes-container {

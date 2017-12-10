@@ -6,9 +6,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
+from main.forms.Like import LikeForm
 from main.forms.Login import Login
 from main.forms.Signup import Signup
 from main.forms.AddPhoto import AddPhoto
+from main.forms.GetPhotos import GetPhotos
 from main.util.Response.Response import Response
 
 
@@ -86,8 +88,13 @@ def get_photos(request):
 		limit = request.GET['limit']
 		offset = request.GET['offset']
 
-		return Response.send200(limit + offset)
-	except Exception:
+		get_photos_form = GetPhotos(limit, offset, request.user)
+		if not get_photos_form.validate():
+			return Response.send400()
+
+		return Response.send200(get_photos_form.get_json())
+	except Exception as e:
+		print(e)
 		return Response.send400()
 
 
@@ -106,4 +113,22 @@ def add_photo(request):
 
 		return Response.send200()
 	except Exception:
+		return Response.send400()
+
+
+def like(request):
+	try:
+		if request.method != 'GET':
+			return Response.send400('Only GET!')
+
+		like_status = request.GET['like']
+		photo_id = request.GET['photo_id']
+
+		like_form = LikeForm(request.user, like_status, photo_id)
+		if not like_form.validate():
+			return Response.send400()
+		like_result = like_form.create_like()
+		return Response.send200({'result': like_result})
+	except Exception as e:
+		print(e)
 		return Response.send400()

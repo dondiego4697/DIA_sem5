@@ -1,4 +1,12 @@
+import base64
+from django.core.files.base import ContentFile
+import time
+
 from main.models import Photo, Profile
+
+
+def get_photo_name():
+	return str(round(time.time() * 1000))
 
 
 class AddPhoto:
@@ -16,11 +24,15 @@ class AddPhoto:
 	def add(self):
 		try:
 			profile = Profile.objects.get(user=self.user)
+			format, imgstr = self.photo.split(';base64,')
+			ext = format.split('/')[-1]
+			img = ContentFile(base64.b64decode(imgstr), name=get_photo_name() + '.' + ext)
+
 			p = Photo.objects.create(
 				user=profile,
 				name=self.name,
 				description=self.description,
-				img=self.photo
+				img=img
 			)
 			p.save()
 			return True

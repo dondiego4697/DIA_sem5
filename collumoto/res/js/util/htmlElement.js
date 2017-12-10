@@ -13,6 +13,6 @@ export function appendChild(parent, child) {
     parent.appendChild(child);
 }
 
-export function removeChild(paren, child) {
-    paren.removeChild(child);
+export function removeChild(parent, child) {
+    parent.removeChild(child);
 }

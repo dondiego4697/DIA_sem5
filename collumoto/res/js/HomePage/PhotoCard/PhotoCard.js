@@ -1,5 +1,8 @@
 import './photocard.scss';
-import {appendChild, createElement} from "../../util/htmlElement";
+import {appendChild, createElement} from '../../util/htmlElement';
+import {request} from '../../util/http';
+import urls from '../../util/urls';
+import Toast from "../../Toast/Toast";
 
 export default class PhotoCard {
     /**
@@ -9,63 +12,68 @@ export default class PhotoCard {
      *  link: String
      * }
      */
-    constructor(node, card1, card2) {
-        this._node = node;
-        this._cardData1 = card1;
-        this._cardData2 = card2;
+    constructor(page, data) {
+        this._page = page;
+        this._cardData = data;
         this._init();
+    }
+
+    getData() {
+        return this._cardData;
+    }
+
+    getCard() {
+        return this._photoCard;
+    }
+
+    _setHeartListeners() {
+        this._heart.addEventListener('click', event => {
+            this._page.showBlocker();
+            const like = this._cardData.isLiked === false;
+            request(urls.like(like, this._cardData.id)).then(res => {
+                const data = res.json.message;
+                this._cardData.isLiked = data.result;
+                this._cardData.likesCount += data.result ? 1 : -1;
+                this._setLikeState();
+                this._setLikesCount();
+                this._page.hideBlocker();
+            }).catch(err => {
+                Toast.showError(err.message);
+                this._page.hideBlocker();
+            });
+        });
     }
 
 
     _init() {
-        this._photoPair = createElement('div', {
-            'class': 'photo-pair'
-        });
-
-        this._photoCard1 = createElement('div', {
+        this._photoCard = createElement('div', {
             'class': 'photo-card'
         });
 
         let infoCardData = this._createInfoCard();
-        this._infoCard1 = infoCardData.infoCard;
-        this._heart1 = infoCardData.heart;
-        this._likes1 = infoCardData.likes;
+        this._infoCard = infoCardData.infoCard;
+        this._heart = infoCardData.heart;
+        this._setHeartListeners();
+        this._likes = infoCardData.likes;
 
-        const img1 = createElement('img', {
-           src: this._cardData1.link
+        const img = createElement('img', {
+            src: this._cardData.link
         });
-        appendChild(this._photoCard1, this._infoCard1);
-        appendChild(this._photoCard1, img1);
-
-        this._photoCard2 = createElement('div', {
-            'class': 'photo-card'
-        });
-
-        infoCardData = this._createInfoCard();
-        this._infoCard2 = infoCardData.infoCard;
-        this._heart2 = infoCardData.heart;
-        this._likes2 = infoCardData.likes;
-
-        const img2= createElement('img', {
-           src: this._cardData2.link
-        });
-        appendChild(this._photoCard2, this._infoCard2);
-        appendChild(this._photoCard2, img2);
-
-        appendChild(this._photoPair, this._photoCard1);
-        appendChild(this._photoPair, this._photoCard2);
+        appendChild(this._photoCard, this._infoCard);
+        appendChild(this._photoCard, img);
 
         this._setLikeState();
         this._setLikesCount();
     }
 
     _setLikesCount() {
-        this._likes1.innerHTML = `_${this._cardData1.likesCount}`;
-        this._likes2.innerHTML = `_${this._cardData2.likesCount}`;
+        this._likes.innerHTML = `_${this._cardData.likesCount}`;
     }
 
     _setLikeState() {
-
+        if (this._cardData.isLiked) {
+            this._heart.classList.add('liked');
+        }
     }
 
     _createInfoCard() {
@@ -99,9 +107,5 @@ export default class PhotoCard {
             heart,
             likes
         }
-    }
-
-    addToNode() {
-        appendChild(this._node, this._photoPair);
     }
 }

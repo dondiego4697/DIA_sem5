@@ -5,12 +5,14 @@ import PhotoCard from './PhotoCard/PhotoCard';
 import {request} from "../util/http";
 import urls from "../util/urls";
 import AddPhotoPopup from "../AddPhotoPopup/AddPhotoPopup";
+import PhotoPair from "./PhotoCard/PhotoPair";
+import Toast from "../Toast/Toast";
 
 export default class HomePage extends BasePage {
     constructor() {
         super();
-        this._photoLimit = 10;
-        this._photoOffset = 0;
+        this._photoList = [];
+        this._clearLimitAndOffset();
         this._nodeHome = document.getElementById('home');
         this._listContainer = document.getElementById('list-container');
         this._addPhotoPopup = new AddPhotoPopup(this);
@@ -19,7 +21,6 @@ export default class HomePage extends BasePage {
     }
 
     _init() {
-        debugger;
         this._btnAddPhoto = HomePage._createBtnAddPhoto();
         appendChild(this._nodeHome, this._btnAddPhoto);
         this._initBtnAddPhotoListener();
@@ -50,21 +51,59 @@ export default class HomePage extends BasePage {
         this._photoOffset += isDecrement ? -this._photoLimit : this._photoLimit;
     }
 
+    _clearLimitAndOffset() {
+        this._photoLimit = 10;
+        this._photoOffset = 0;
+    }
+
+    _clearPhotoList() {
+        this._photoList.forEach(photoPair => {
+            photoPair.removePair();
+        });
+    }
+
+    _refresh() {
+        this._clearPhotoList();
+        this._clearLimitAndOffset();
+        this._getNewPhotos();
+    }
+
     _getNewPhotos() {
         this.showBlocker();
-        request(urls.getPhotos(this._photoLimit, this._photoOffset), {}).then(res => {
+        request(urls.getPhotos(this._photoLimit, this._photoOffset)).then(res => {
             this.hideBlocker();
-            //TODO нормальные данные подтягивать
-            /*for (let i = 1; i < 8; i++) {
-                const photoCard = new PhotoCard(this._listContainer, {
-                    likesCount: i * 100,
-                    link: '/res/7579.jpg'
-                }, {
-                    likesCount: i * 200,
-                    link: '/res/7579.jpg'
+            const arrData = res.json.message;
+            const result = [];
+            for (let i = 0; i < arrData.length; i += 2) {
+                result.push([arrData[i], arrData[i + 1]]);
+            }
+
+            result.forEach(pair => {
+                const photoPair = new PhotoPair(this._listContainer);
+
+                const photoCard1 = new PhotoCard(this, {
+                    id: pair[0]['id'],
+                    likesCount: pair[0]['likes_count'],
+                    isLiked: pair[0]['is_liked'],
+                    link: `res/${pair[0].img.slice(7)}`
                 });
-                photoCard.addToNode();
-            }*/
+                photoPair.addCard(photoCard1);
+
+
+                if (typeof pair[1] !== 'undefined') {
+                    const photoCard2 = new PhotoCard(this, {
+                        id: pair[1]['id'],
+                        likesCount: pair[1]['likes_count'],
+                        isLiked: pair[1]['is_liked'],
+                        link: `res/${pair[1].img.slice(7)}`
+                    });
+                    photoPair.addCard(photoCard2);
+                }
+
+                this._photoList.push(photoPair);
+            });
+        }).catch(err => {
+            Toast.showError(err.message);
         });
     }
 }
