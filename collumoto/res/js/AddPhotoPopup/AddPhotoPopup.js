@@ -148,8 +148,8 @@ export default class AddPhotoPopup {
                 throw new Error('Wrong data');
             }
             this._page.hideBlocker();
-            this._page._refresh();
             this.removePopup();
+            this._page._refresh();
         }).catch(err => {
             this._page.hideBlocker();
             Toast.showError(err.message);

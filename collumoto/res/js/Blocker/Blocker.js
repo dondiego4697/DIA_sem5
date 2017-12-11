@@ -29,6 +29,8 @@ export default class Blocker {
     }
 
     remove() {
-        removeChild(this._node, this._blockerContainer);
+        if (this._node.contains(this._node)) {
+            removeChild(this._node, this._blockerContainer);
+        }
     }
 }

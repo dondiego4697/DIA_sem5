@@ -73,6 +73,8 @@ export default class PhotoCard {
     _setLikeState() {
         if (this._cardData.isLiked) {
             this._heart.classList.add('liked');
+        } else {
+            this._heart.classList.remove('liked');
         }
     }
 
