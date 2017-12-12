@@ -28,6 +28,7 @@ export default class PhotoCard {
 
     _setHeartListeners() {
         this._heart.addEventListener('click', event => {
+            event.stopPropagation();
             this._page.showBlocker();
             const like = this._cardData.isLiked === false;
             request(urls.like(like, this._cardData.id)).then(res => {
@@ -44,6 +45,12 @@ export default class PhotoCard {
         });
     }
 
+    _setListeners() {
+        this._photoCard.addEventListener('click', () => {
+           document.location = `/photo/${this._cardData.id}`;
+        });
+    }
+
 
     _init() {
         this._photoCard = createElement('div', {
@@ -54,6 +61,7 @@ export default class PhotoCard {
         this._infoCard = infoCardData.infoCard;
         this._heart = infoCardData.heart;
         this._setHeartListeners();
+        this._setListeners();
         this._likes = infoCardData.likes;
 
         const img = createElement('img', {
@@ -64,6 +72,7 @@ export default class PhotoCard {
 
         this._setLikeState();
         this._setLikesCount();
+
     }
 
     _setLikesCount() {

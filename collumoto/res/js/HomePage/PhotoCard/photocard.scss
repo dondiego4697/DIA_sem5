@@ -6,26 +6,32 @@
     position: relative;
     height: 400px;
     width: 400px;
-    background-color: #F2F2F2;
-    padding: 10px;
+    background-color: #cdcfd0;
+    //padding: 10px;
     margin: 10px;
     border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 
     img {
-      height: 400px;
-      width: 400px;
+     /* height: 400px;
+      width: 400px;*/
       border-radius: 5px;
+      background-size: auto;
     }
 
     .info-card {
       display: none;
       position: absolute;
-      top: 10px;
+      //top: 10px;
       height: 400px;
       width: 400px;
       border-radius: 5px;
       background-color: rgba(0, 0, 0, 0.3);
       color: white;
+      cursor: pointer;
 
       .heart-container {
         width: 60px;
