@@ -58,7 +58,7 @@ class ProfileManager(models.Manager):
 
 
 class Profile(models.Model):
-	user = models.OneToOneField(User)
+	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	nickname = models.CharField(max_length=255)
 	objects = ProfileManager()
 
@@ -67,7 +67,7 @@ class Profile(models.Model):
 
 
 class Photo(models.Model):
-	user = models.ForeignKey('Profile')
+	user = models.ForeignKey('Profile', on_delete=models.CASCADE)
 	name = models.CharField(max_length=120)
 	description = models.CharField(max_length=255)
 	img = models.FileField(upload_to='photos', null=False, blank=False)
@@ -80,7 +80,7 @@ class Photo(models.Model):
 
 
 class Like(models.Model):
-	user = models.ForeignKey('Profile')
+	user = models.ForeignKey('Profile', on_delete=models.CASCADE)
 	like = models.BooleanField()
 	objects = LikeManager()
 
