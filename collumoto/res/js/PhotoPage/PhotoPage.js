@@ -1,4 +1,5 @@
-import BasePage from "../BasePage";
+import BasePage from '../BasePage';
+import './photopage.scss';
 
 export default class PhotoPage extends BasePage {
     constructor() {

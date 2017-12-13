@@ -1,4 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
     {% include "nav.html" %}
+
+    <div id="photo-container">
+        <h1 class="title">
+            {{ title }}
+        </h1>
+        <h4 class="pub-date">
+            {{ date }}
+        </h4>
+        <h3 class="description">
+            {{ description }}
+        </h3>
+        <div class="image-container">
+            <img class="image" src="{{ img }}">
+        </div>
+        <div class="like-container">
+
+        </div>
+    </div>
 {% endblock %}

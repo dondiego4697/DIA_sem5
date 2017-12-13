@@ -1,0 +1,32 @@
+.text {
+  font-family: 'Raleway', sans-serif;
+  margin: 5px 25px 5px 25px;
+  word-break: break-all;
+}
+
+#photo-container {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  margin-top: 130px;
+
+  .title {
+    @extend .text;
+  }
+
+  .description {
+    @extend .text;
+  }
+
+  .pub-date {
+    @extend .text;
+  }
+
+  .image-container {
+    padding: 0 25px 0 25px;
+
+    .image {
+      width: 100%;
+    }
+  }
+}

@@ -11,6 +11,7 @@ from main.forms.Login import Login
 from main.forms.Signup import Signup
 from main.forms.AddPhoto import AddPhoto
 from main.forms.GetPhotos import GetPhotos
+from main.models import Photo, Profile
 from main.util.Response.Response import Response
 
 
@@ -32,8 +33,23 @@ def index_view(request):
 
 @login_required(login_url='/auth/')
 def photo_view(request, photo_id):
+	photo = Photo.objects.get_by_id(photo_id)
+	profile = photo.user
+	date = photo.pub_date
+
+	img = str(photo.img).split('/')
+	img = img[1:len(img)]
+	img = ['res'] + img
+	img = '/' + '/'.join(img)
+
+	is_liked = Photo.objects.is_liked(profile, photo)
 	return render(request, 'photo.html', {
-		'title': ''
+		'title': photo.name,
+		'description': photo.description,
+		'img': img,
+		'date': "{}:{} {}.{}.{}".format(date.hour, date.minute, date.day, date.month, date.year),
+		'is_liked': False if is_liked is None or not is_liked else True,
+		'likes_count': photo.likes.all().filter(like=True).count()
 	})
 
 
