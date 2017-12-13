@@ -1,5 +1,6 @@
 import json
 
+import os
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -15,19 +16,24 @@ from main.models import Photo, Profile
 from main.util.Response.Response import Response
 
 
+def get_env():
+	return os.environ.get('NODE_ENV')
+
+
 def auth_view(request):
 	if request.user.is_authenticated():
 		return HttpResponseRedirect('/')
-
 	return render(request, 'auth.html', {
-		'title': 'Authentication'
+		'title': 'Authentication',
+		'node_env': os.environ.get('NODE_ENV')
 	})
 
 
 @login_required(login_url='/auth/')
 def index_view(request):
 	return render(request, 'index.html', {
-		'title': 'Collumoto'
+		'title': 'Collumoto',
+		'node_env': os.environ.get('NODE_ENV')
 	})
 
 
@@ -51,7 +57,8 @@ def photo_view(request, photo_id):
 		'img': img,
 		'date': "{}:{} {}.{}.{}".format(date.hour, date.minute, date.day, date.month, date.year),
 		'is_liked': False if is_liked is None or not is_liked else True,
-		'likes_count': photo.likes.all().filter(like=True).count()
+		'likes_count': photo.likes.all().filter(like=True).count(),
+		'node_env': os.environ.get('NODE_ENV')
 	})
 
 

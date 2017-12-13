@@ -3,6 +3,8 @@ console.log(isDEV ? 'development' : 'production || testing');
 
 let webpack = require('webpack');
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+
 
 module.exports = {
     devtool: 'source-map',
@@ -25,7 +27,8 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                loader: ExtractTextPlugin.extract({fallback: 'style-loader',
+                loader: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
                     /*use: [
                         {loader: 'css-loader!sass-loader', options: {minimize: true}}
                     ]*/
@@ -43,17 +46,10 @@ module.exports = {
     ] : [
         new ExtractTextPlugin('[name].bundle.min.css'),
         new webpack.optimize.UglifyJsPlugin({
-            beautify: false,
-            comments: false,
-            minimize: isDEV,
-            compress: {
-                sequences: true,
-                booleans: true,
-                loops: true,
-                unused: true,
-                warnings: true,
-                drop_console: false,
-                unsafe: true
+            uglifyOptions: {
+                minimize: true,
+                include: /\.min\.js$/,
+                compress: false
             }
         }),
     ]

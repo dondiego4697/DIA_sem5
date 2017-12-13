@@ -5,17 +5,22 @@
     <meta charset="UTF-8">
     <title>{{ title }}</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <link href="{% static "main.bundle.css" %}" rel="stylesheet">
-    <script defer src="{% static "main.bundle.js" %}"></script>
+    {% if node_env == 'prod' %}
+        <link href="{% static "main.bundle.min.css" %}" rel="stylesheet">
+        <script defer src="{% static "main.bundle.min.js" %}"></script>
+    {% else %}
+        <link href="{% static "main.bundle.css" %}" rel="stylesheet">
+        <script defer src="{% static "main.bundle.js" %}"></script>
+    {% endif %}
 </head>
 <body>
-    <div class="brand-container">
-        <div class="brand">
-            <h1>Collumoto</h1>
-        </div>
+<div class="brand-container">
+    <div class="brand">
+        <h1>Collumoto</h1>
     </div>
-    <div class="main-container">
-        {%  block content %} {% endblock %}
-    </div>
+</div>
+<div class="main-container">
+    {% block content %} {% endblock %}
+</div>
 </body>
 </html>
