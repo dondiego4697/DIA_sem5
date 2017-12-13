@@ -16,7 +16,20 @@
             <img class="image" src="{{ img }}">
         </div>
         <div class="like-container">
+            <div class="heart-container">
+                <div id="heart" class="heart">
 
+                </div>
+            </div>
+            <div id="like-counter" class="like-count">_{{ likes_count }}</div>
         </div>
     </div>
+
+    <script>(function () {
+        window.photoData = {
+          likesCount: '{{ likes_count }}',
+          isLiked: '{{ is_liked }}',
+          id: '{{ id }}'
+        };
+    })();</script>
 {% endblock %}

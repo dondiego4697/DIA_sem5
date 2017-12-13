@@ -34,7 +34,8 @@ def index_view(request):
 @login_required(login_url='/auth/')
 def photo_view(request, photo_id):
 	photo = Photo.objects.get_by_id(photo_id)
-	profile = photo.user
+	user = request.user
+	profile = Profile.objects.get(user=user)
 	date = photo.pub_date
 
 	img = str(photo.img).split('/')
@@ -44,6 +45,7 @@ def photo_view(request, photo_id):
 
 	is_liked = Photo.objects.is_liked(profile, photo)
 	return render(request, 'photo.html', {
+		'id': photo_id,
 		'title': photo.name,
 		'description': photo.description,
 		'img': img,

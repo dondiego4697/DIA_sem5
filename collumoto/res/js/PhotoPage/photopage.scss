@@ -29,4 +29,55 @@
       width: 100%;
     }
   }
+
+  .like-container {
+    display: flex;
+    flex-direction: row;
+    margin: 5px 25px 25px 25px;
+
+    .like-count {
+      font-family: 'Raleway', sans-serif;
+      line-height: 30px;
+      font-size: 30px;
+      margin-left: 15px;
+    }
+
+    .heart-container {
+      width: 20px;
+      height: 20px;
+
+      .heart {
+        width: 20px;
+        height: 30px;
+        background-color: #dd8489;
+        border-radius: 50px 50px 0 0;
+        transform: rotate(315deg);
+        transition-duration: 0.3s;
+        cursor: pointer;
+
+        &:before {
+          position: absolute;
+          width: 30px;
+          height: 20px;
+          left: 0;
+          bottom: 0;
+          content: "";
+          background-color: #dd8489;
+          border-radius: 0 50px 50px 0;
+          transition-duration: 0.3s;
+        }
+
+        &:hover:before,
+        &:hover {
+          background-color: #DD0A17;
+        }
+        &.liked {
+          background-color: #DD0A17;
+          &:before {
+            background-color: #DD0A17;
+          }
+        }
+      }
+    }
+  }
 }
