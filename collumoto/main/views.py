@@ -71,7 +71,7 @@ def sign_up(request):
 	try:
 		if request.method != 'POST':
 			return Response.send400('Only POST!')
-
+		print(request.body)
 		body = json.loads(request.body)
 		sign_up_form = Signup(body)
 		if not sign_up_form.validate():
@@ -81,7 +81,8 @@ def sign_up(request):
 			return Response.send400()
 
 		return Response.send200()
-	except Exception:
+	except Exception as e:
+		print(e)
 		return Response.send400()
 
 
