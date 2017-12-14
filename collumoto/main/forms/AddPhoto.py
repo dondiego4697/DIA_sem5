@@ -36,6 +36,5 @@ class AddPhoto:
 			)
 			p.save()
 			return True
-		except Exception as e:
-			print(e)
+		except Exception:
 			return False

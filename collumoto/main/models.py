@@ -19,8 +19,6 @@ class PhotoManager(models.Manager):
 			like = Like.objects.get(id=first_like.id)
 		if len(user_likes) == 0:
 			return None
-		print(like)
-		print(like.like)
 		return like.like
 
 	def get_likes_count(self, _id):

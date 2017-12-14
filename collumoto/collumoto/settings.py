@@ -25,7 +25,7 @@ SECRET_KEY = 'vxh-pv-4rf*z-j$ou%d9@uam$fx!9qf041a=46ci_@9v)@ejl0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['178.62.38.231', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = [os.environ.get('HOST'), 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -79,11 +79,11 @@ WSGI_APPLICATION = 'collumoto.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'collumoto',
-        'USER': 'bender',
-        'PASSWORD': 'bender', #TODO брать из env
-        'HOST': 'localhost',
-        'PORT': '5432'
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASS'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT')
     }
 }
 

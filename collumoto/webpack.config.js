@@ -1,9 +1,9 @@
-let isDEV = !['prod', 'testing'].includes(process.env.NODE_ENV);
+let isDEV = !['prod', 'testing'].includes(process.env.ENV);
 console.log(isDEV ? 'development' : 'production || testing');
 
 let webpack = require('webpack');
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 
 module.exports = {
@@ -45,7 +45,7 @@ module.exports = {
         new ExtractTextPlugin('[name].bundle.css')
     ] : [
         new ExtractTextPlugin('[name].bundle.min.css'),
-        new webpack.optimize.UglifyJsPlugin({
+        new UglifyJsPlugin({
             uglifyOptions: {
                 minimize: true,
                 include: /\.min\.js$/,

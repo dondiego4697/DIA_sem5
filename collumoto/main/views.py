@@ -17,7 +17,7 @@ from main.util.Response.Response import Response
 
 
 def get_env():
-	return os.environ.get('NODE_ENV')
+	return os.environ.get('ENV')
 
 
 def auth_view(request):
@@ -25,7 +25,7 @@ def auth_view(request):
 		return HttpResponseRedirect('/')
 	return render(request, 'auth.html', {
 		'title': 'Authentication',
-		'node_env': os.environ.get('NODE_ENV')
+		'env': get_env()
 	})
 
 
@@ -33,7 +33,7 @@ def auth_view(request):
 def index_view(request):
 	return render(request, 'index.html', {
 		'title': 'Collumoto',
-		'node_env': os.environ.get('NODE_ENV')
+		'env': get_env()
 	})
 
 
@@ -58,7 +58,7 @@ def photo_view(request, photo_id):
 		'date': "{}:{} {}.{}.{}".format(date.hour, date.minute, date.day, date.month, date.year),
 		'is_liked': False if is_liked is None or not is_liked else True,
 		'likes_count': photo.likes.all().filter(like=True).count(),
-		'node_env': os.environ.get('NODE_ENV')
+		'env': get_env()
 	})
 
 
@@ -152,6 +152,5 @@ def like(request):
 			return Response.send400()
 		like_result = like_form.create_like()
 		return Response.send200({'result': like_result})
-	except Exception as e:
-		print(e)
+	except Exception:
 		return Response.send400()
