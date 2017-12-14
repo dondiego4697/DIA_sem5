@@ -25,7 +25,7 @@ SECRET_KEY = 'vxh-pv-4rf*z-j$ou%d9@uam$fx!9qf041a=46ci_@9v)@ejl0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['178.62.38.231', 'localhost', '127.0.0.1']
 
 
 # Application definition
