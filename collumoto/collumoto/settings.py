@@ -27,6 +27,7 @@ DEBUG = True
 
 HOST = os.environ.get('HOST')
 print(HOST)
+print(os.environ)
 ALLOWED_HOSTS = [HOST, 'localhost', '127.0.0.1']
 
 
