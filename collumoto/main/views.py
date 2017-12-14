@@ -71,8 +71,7 @@ def sign_up(request):
 	try:
 		if request.method != 'POST':
 			return Response.send400('Only POST!')
-		print(request.body)
-		body = json.loads(request.body)
+		body = json.loads(request.body.decode('utf-8'))
 		sign_up_form = Signup(body)
 		if not sign_up_form.validate():
 			return Response.send400()
@@ -81,8 +80,7 @@ def sign_up(request):
 			return Response.send400()
 
 		return Response.send200()
-	except Exception as e:
-		print(e)
+	except Exception:
 		return Response.send400()
 
 
@@ -91,7 +89,7 @@ def log_in(request):
 		if request.method != 'POST':
 			return Response.send400('Only POST!')
 
-		body = json.loads(request.body)
+		body = json.loads(request.body.decode('utf-8'))
 		log_in_form = Login(body)
 		if not log_in_form.validate():
 			return Response.send400()
@@ -128,7 +126,7 @@ def add_photo(request):
 		if request.method != 'POST':
 			return Response.send400('Only POST!')
 
-		body = json.loads(request.body)
+		body = json.loads(request.body.decode('utf-8'))
 		add_photo_form = AddPhoto(body, request.user)
 		if not add_photo_form.validate():
 			return Response.send400()
