@@ -8,7 +8,7 @@ class LikeForm:
 		self.user = user
 
 	def validate(self):
-		if not self.photo_id and self.photo_id != 0 or not self.user.is_authenticated():
+		if not self.photo_id and self.photo_id != 0 or not self.user.is_authenticated:
 			return False
 		return True
 

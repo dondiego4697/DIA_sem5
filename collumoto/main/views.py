@@ -21,7 +21,7 @@ def get_env():
 
 
 def auth_view(request):
-	if request.user.is_authenticated():
+	if request.user.is_authenticated:
 		return HttpResponseRedirect('/')
 	return render(request, 'auth.html', {
 		'title': 'Authentication',

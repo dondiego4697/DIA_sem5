@@ -17,7 +17,7 @@ class AddPhoto:
 		self.photo = data['photo']
 
 	def validate(self):
-		if not self.name or not self.description or not self.photo or not self.user.is_authenticated():
+		if not self.name or not self.description or not self.photo or not self.user.is_authenticated:
 			return False
 		return True
 

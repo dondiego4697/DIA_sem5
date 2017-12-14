@@ -8,7 +8,7 @@ class GetPhotos:
 		self.user = user
 
 	def validate(self):
-		if not self.limit and self.limit != 0 or not self.offset and self.offset != 0 or not self.user.is_authenticated():
+		if not self.limit and self.limit != 0 or not self.offset and self.offset != 0 or not self.user.is_authenticated:
 			return False
 		return True
 
