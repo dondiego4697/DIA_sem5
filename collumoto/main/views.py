@@ -119,8 +119,7 @@ def get_photos(request):
 			return Response.send400()
 
 		return Response.send200(get_photos_form.get_json())
-	except Exception as e:
-		print(e)
+	except Exception:
 		return Response.send400()
 
 
